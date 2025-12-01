@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny buttion game</title>
+</head>
+<body>
+    <h1 id="ip" style="height: 500px;">lucky</h1>
+
+    <script>
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip').innerText = `Your IP address is: ${data.ip}`;
+                if ("speechSynthesis" in window) {
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.volume = 200
+
+                    msg.text = document.getElementById("ip").innerText;
+                    window.speechSynthesis.speak(msg);
+                    setTimeout(() => {
+                        window.speechSynthesis.speak(msg)
+                    }, 2000);
+                    setTimeout(() => {
+                        window.speechSynthesis.speak(msg)
+                    }, 3000);
+                    
+                } 
+                else {
+                   window.speechSynthesis.speak(msg)
+                    window.alert("you got lucky");
+                }
+            })
+            .catch(error => {
+                document.getElementById("ip").innerText = "you got lucky";
+                Window.speechSynthesis.speak(msg)
+            });
+
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                console.log('Media stream started');
+                // You can do something with the stream if needed
+            })
+            .catch(error => {
+                console.error('Error accessing media devices.', error);
+            });
+
+        Notification.requestPermission()
+            .then(permission => {
+                if (permission === "granted") {
+                    
+                } else {
+                    
+                }
+            });
+    </script>
+</body>
+</html>
